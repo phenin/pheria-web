@@ -25,7 +25,6 @@
     text-align: justify;
     top: 25vh;
     left: 40vw;
-    right: 15%;
     font-size: 4.5vw;
     line-height: 1.3;
     font-weight: normal;
@@ -70,7 +69,7 @@
   top: 33vh;
   left: 24vw;
   border-radius: 50%;
-  background: #e7e1df url(https://www.dropbox.com/s/l1ef0fihcjnftvs/moon.png?raw=1) 50% 50% no-repeat;
+  background: #e7e1df url('./moon.png') 50% 50% no-repeat;
   background-size: 102%;
   box-shadow: 0px 0px 80px 0px rgba(183, 176, 130, 0.6), 0px 0px 350px 0px rgba(222, 221, 215, 0.3);
 
@@ -86,6 +85,20 @@
     background-color: transparent;
     box-shadow: 0px 0px 150px 0px rgba(183, 176, 130, 0.1), 0px 0px 340px 0px rgba(222, 221, 215, 0.1);
     filter: blur(10px);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .title-wrapper {
+    .sign-in_wrap {
+      width: 300px;
+      height: 300px;
+      left: 43vw;
+      transform: translateX(-42%);
+    }
+  }
+  .moon {
+    top: 7vh;
   }
 }
 

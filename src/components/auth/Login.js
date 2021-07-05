@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import 'css/login.scss'
 import { useTranslation } from 'react-i18next'
-import useMedia from 'hooks/useMedia';
 import Google from 'components/auth/Google';
 import { Input, Button } from "antd"
 import { useDispatch } from 'react-redux'
@@ -13,14 +12,10 @@ import {
 
 export default function Login() {
   const { t } = useTranslation('common')
-  const isMobile = useMedia(['(max-width: 480px)'], [true], false);
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const [classNameRight, setClassNameRight] = useState(true)
-  const toggleSignUpWindow = () => {
-    setClassNameRight(!classNameRight)
-  }
+  const [isSignIn, setIsSignIn] = useState(true)
 
   const [form, setForm] = useState({})
 
@@ -31,13 +26,18 @@ export default function Login() {
     })
   }
 
-  const handleLogin = () => {
-    dispatch(login(form))
-    history.push('/home')
+  const changeType = () => {
+    setIsSignIn(!isSignIn)
   }
 
-  const handleSignUp = () => {
-    dispatch(signUp(form))
+  const handleSubmit = () => {
+    if(isSignIn){
+      dispatch(login(form))
+    }
+    else{
+      dispatch(signUp(form))
+    }
+    
     history.push('/home')
   }
 
@@ -48,6 +48,15 @@ export default function Login() {
         <div className="social-container">
           <Google />
         </div>
+        {
+          !isSignIn && <Input 
+            className="sign-in_input"
+            value={form.name || ''} 
+            type="name" 
+            placeholder="Name" 
+            onChange={(v) => handleChangeInput('name', v)}
+          />
+        }
         <Input 
           className="sign-in_input"
           value={form.email || ''} 
@@ -63,14 +72,21 @@ export default function Login() {
           onChange={(v) => handleChangeInput('password', v)}
         />
         <Button 
-          onClick={() => handleLogin()}
+          onClick={() => handleSubmit()}
           className="pheria-btn sign-in_input" 
           type="primary" 
           shape="round" 
           size='large'
         >
-          {t('sign-in')}
+          {isSignIn ? t('sign-in') : t('sign-up')}
         </Button>
+        <a 
+          onClick={() => changeType()}
+          className="sign-in_link" 
+          href
+        >
+          {isSignIn ? t('sign-up') : t('sign-in')}
+        </a>
       </div>
     </div>
   )

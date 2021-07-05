@@ -3,11 +3,20 @@ import { GoogleLogin } from 'react-google-login';
 import {
   GoogleOutlined
 } from '@ant-design/icons';
+import { useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom";
+
+import {
+  loginByGG
+} from 'store/actions/userActions'
 
 export default function Google() {
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const responseGoogle = (response) => {
-    console.log(response);
+    dispatch(loginByGG({token: response.tokenId}))
+    history.push('/home')
   }
 
   return (

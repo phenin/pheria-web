@@ -34,14 +34,16 @@
     width: 50%;
     margin: 10px 0;
   }
+  .sign-in_link{
+    color: #fff;
+    font-size: 12px;
+  }
 }
 
-@media screen and (max-width: 414px) {
-  .background{
-    .sign-in {
-      width: 300px;
-      height: 300px;
-    }
+@media screen and (max-width: 425px) {
+  .sign-in {
+    width: 300px;
+    height: 300px;
   }
 }
 
