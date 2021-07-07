@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import 'css/menu-mobile.scss'
 import {
   HomeOutlined,
   SettingFilled,
-  SmileOutlined,
-  SyncOutlined,
-  LoadingOutlined,
 } from '@ant-design/icons';
 
 export default function MenuMobile() {
