@@ -1,5 +1,9 @@
 import React from 'react'
+import 'css/story.scss'
 import DepressionNovelOneBanner from 'components/template/depression/novel-one-banner'
+import DepressionNovelMultiBanner from 'components/template/depression/novel-multi-banner'
+
+import RainBorrowCloud from 'components/topping/rain/borrow-cloud'
 
 export default function StoryDetail() {
 
@@ -8,7 +12,8 @@ export default function StoryDetail() {
     heart: 1000,
     _id: '1',
     title: 'Nice to meet you Lonely girl',
-    template: 'depression-novel-one-banner/depression-social-phobia'
+    template: 'depression-novel-multi-banner/depression-blue-room',
+    topping: 'rain/borrow-cloud'
   }
 
   const templateType = data.template.split('/')[0]
@@ -18,6 +23,9 @@ export default function StoryDetail() {
     case 'depression-novel-one-banner':
       Component = DepressionNovelOneBanner
       break;
+    case 'depression-novel-multi-banner':
+      Component = DepressionNovelMultiBanner
+      break;
     default:
       break;
   }
@@ -25,6 +33,7 @@ export default function StoryDetail() {
   return (
     <div className='story-detail'>
       <Component data={data}/>
+      <RainBorrowCloud />
     </div>
   )
 }

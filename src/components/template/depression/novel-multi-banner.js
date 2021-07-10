@@ -1,15 +1,15 @@
 import React from 'react'
-import 'css/template/depression/novel-multi-banner.scss'
+import 'css/template/depression/novel-one-banner.scss'
 
-export default function NovelOneBanner({data}) {
+export default function NovelMultiBanner({data}) {
 
   const templateName = data.template.split('/')[1]
 
   return (
-    <div className={`depression-novel-one-banner ${templateName}`}>
+    <div className={`depression-novel-multi-banner ${templateName}`}>
       <div className='header'>
         <div className='img'>
-          <img src={`/assets/template/depression/${templateName}.png`} alt='lonely girl' />
+          <img src={`/assets/template/depression/${templateName}.png`} alt='' />
         </div>
         <div className='title'>
           {data.title}
