@@ -9,17 +9,17 @@ export default function MenuMobile() {
 
   return (
     <div className="menu">
-      <div class="navbar">
+      <div className="navbar">
         <HomeOutlined />
         <SettingFilled />
 
-        <div class="circle">
-          <i class="fas fa-plus plus-icon"></i>
-          <i class="fab fa-youtube social"></i>
-          <i class="fab fa-twitter social"></i>
-          <i class="fab fa-github  social"></i>
+        <div className="circle">
+          <i className="fas fa-plus plus-icon"></i>
+          <i className="fab fa-youtube social"></i>
+          <i className="fab fa-twitter social"></i>
+          <i className="fab fa-github  social"></i>
         </div>
-        <div class="circleBackground"></div>
+        <div className="circleBackground"></div>
       </div>
     </div>
     

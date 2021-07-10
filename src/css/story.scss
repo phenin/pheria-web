@@ -27,37 +27,24 @@
   overflow: auto;
   overflow-y: scroll;
   .container {
-    padding: 10px;
-    overflow: hidden;
-    width: 100%;
+    padding: 20px 0;
+    max-width: 1200px;
     margin: 0 auto;
-    columns: 4;
-    column-gap: 40px;
-    break-inside: avoid;
-    -webkit-column-break-inside: avoid
-  }
-  
-}
-@media (max-width: 1200px) {
-  .story-list{
-    .container {
-      columns: 3;
-      width: calc(100% - 40px);
-      box-sizing: border-box;
-    }
-  }
-}
-@media (max-width: 768px) {
-  .story-list{
-    .container {
-      columns: 2;
-    }
-  }
-}
-@media (max-width: 480px) {
-  .story-list{
-    .container {
-      columns: 1;
-    }
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-auto-rows: 10px;
+    justify-content: center;
+    .ht-0 { grid-row-end: span 14; }
+    .ht-1 { grid-row-end: span 15; }
+    .ht-2 { grid-row-end: span 15; }
+    .ht-3 { grid-row-end: span 16; }
+    .ht-4 { grid-row-end: span 17; }
+    .ht-5 { grid-row-end: span 18; }
+    .ht-6 { grid-row-end: span 19; }
+    .ht-7 { grid-row-end: span 20; }
+    .ht-8 { grid-row-end: span 21; }
+    .ht-9 { grid-row-end: span 22; }
+
   }
 }

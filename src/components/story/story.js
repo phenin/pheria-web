@@ -4,8 +4,10 @@ import {
   HeartFilled,
 } from '@ant-design/icons';
 import 'css/story.scss'
+import { useHistory } from "react-router-dom";
 
 export default function Story({data}) {
+  const history = useHistory();
 
   const [paddingBottom, setPaddingBottom] = useState(100)
 
@@ -22,10 +24,13 @@ export default function Story({data}) {
     })
   }, [data, getMeta, setPaddingBottom])
 
-  
+  const viewDetail = (item) =>{
+    history.push(`/story/${item._id}`);
+  }
 
   return (
-    <div className="story">
+    <div className={`story ht-${Number.parseInt((paddingBottom - 100) / 10 )}`}
+      onClick={()=>viewDetail(data)}>
       <div className="story_container">
         <Link className="story_link" to="/">
           <div className="story_wrap" style={{paddingBottom: paddingBottom + '%'}}>
@@ -35,7 +40,7 @@ export default function Story({data}) {
             <HeartFilled className="heart"/> {data.heart}
           </div>
         </Link>
-       
+      
       </div>
     </div>
   )

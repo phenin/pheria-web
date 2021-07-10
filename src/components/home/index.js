@@ -8,8 +8,7 @@ export default function Home() {
   return (
     <div className="background">
       <StoryList />
-      
-      {/* <Menu/> */}
+      <Menu/>
     </div>
   )
 }

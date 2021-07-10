@@ -14,6 +14,7 @@ const PageNotFound = lazy(() => import('./components/notfound'));
 const Login = lazy(() => import('./components/auth/LoginBackground'));
 const Home = lazy(() => import('./components/home/index'));
 const HomeAdmin = lazy(() => import('./components/admin/home'));
+const StoryDetail = lazy(() => import('./components/story/story-detail'));
 
 const store = configureStore()
 
@@ -27,6 +28,10 @@ const App = () => {
                     <Switch>
                         <Route exact path="/home" render={(props) => {
                             const Component = RequireAuth(props)(HomeAdmin)
+                            return <Component />
+                        }} />
+                        <Route exact path="/story/:id" render={(props) => {
+                            const Component = RequireAuth(props)(StoryDetail)
                             return <Component />
                         }} />
                         <Route exact path="/" component={Home} />
