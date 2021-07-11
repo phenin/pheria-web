@@ -1,7 +1,7 @@
 import React from 'react'
 import 'css/story.scss'
-import DepressionNovelOneBanner from 'components/template/depression/novel-one-banner'
-import DepressionNovelMultiBanner from 'components/template/depression/novel-multi-banner'
+import NovelOneBanner from 'components/template/novel/novel-one-banner'
+import NovelMultiBanner from 'components/template/novel/novel-multi-banner'
 
 import RainBorrowCloud from 'components/topping/rain/borrow-cloud'
 
@@ -12,7 +12,7 @@ export default function StoryDetail() {
     heart: 1000,
     _id: '1',
     title: 'Nice to meet you Lonely girl',
-    template: 'depression-novel-multi-banner/depression-blue-room',
+    template: 'novel-multi-banner/depression-blue-room',
     topping: 'rain/borrow-cloud'
   }
 
@@ -20,11 +20,11 @@ export default function StoryDetail() {
 
   let Component
   switch (templateType) {
-    case 'depression-novel-one-banner':
-      Component = DepressionNovelOneBanner
+    case 'novel-one-banner':
+      Component = NovelOneBanner
       break;
-    case 'depression-novel-multi-banner':
-      Component = DepressionNovelMultiBanner
+    case 'novel-multi-banner':
+      Component = NovelMultiBanner
       break;
     default:
       break;
