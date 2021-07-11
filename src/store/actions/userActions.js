@@ -52,8 +52,8 @@ export const login = (params) => async (dispatch, getState) => {
   try {
     const data = await fetchLogin(params)
 
-    setCookie('accessToken', data.data.accessToken)
-    setCookie('refreshToken', data.data.refreshToken)
+    setCookie('accessToken', data.data.token.accessToken)
+    setCookie('refreshToken', data.data.token.refreshToken)
 
     dispatch({
       type: ActionTypes.LOGIN_SUCCESS,
@@ -86,6 +86,9 @@ export const signUp = (params) => async (dispatch, getState) => {
   try {
     
     const data = await fetchSignUp(params)
+
+    setCookie('accessToken', data.data.token.accessToken)
+    setCookie('refreshToken', data.data.token.refreshToken)
 
     dispatch({
       type: ActionTypes.SIGNUP_SUCCESS,

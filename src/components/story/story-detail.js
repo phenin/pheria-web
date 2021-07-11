@@ -12,7 +12,7 @@ export default function StoryDetail() {
     heart: 1000,
     _id: '1',
     title: 'Nice to meet you Lonely girl',
-    template: 'novel-multi-banner/depression-blue-room',
+    template: 'novel-one-banner/depression-stress',
     topping: 'rain/borrow-cloud'
   }
 
