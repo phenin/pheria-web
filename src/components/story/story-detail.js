@@ -1,25 +1,27 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import 'css/story.scss'
 import NovelOneBanner from 'components/template/novel/novel-one-banner'
 import NovelMultiBanner from 'components/template/novel/novel-multi-banner'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { getDetailStory } from 'store/actions/storyActions'
+import { useParams } from "react-router-dom";
 
 import RainBorrowCloud from 'components/topping/rain/borrow-cloud'
 
 export default function StoryDetail() {
 
-  const data = {
-    image: 	'https://i.pinimg.com/236x/fb/23/5a/fb235a09afcd377386a489a3adc1334e.jpg',
-    heart: 1000,
-    _id: '1',
-    title: 'Nice to meet you Lonely girl',
-    template: 'novel-one-banner/depression-stress',
-    topping: 'rain/borrow-cloud'
-  }
+  const dispatch = useDispatch()
+  const state = useSelector(stateSelector, shallowEqual)
+  let slug  = useParams();
 
-  const templateType = data.template.split('/')[0]
+  useEffect(()=>{
+    dispatch(getDetailStory({_id: slug.id}))
+  },[dispatch, getDetailStory])
+
+  const type = state.story && state.story.type
 
   let Component
-  switch (templateType) {
+  switch (type) {
     case 'novel-one-banner':
       Component = NovelOneBanner
       break;
@@ -31,9 +33,16 @@ export default function StoryDetail() {
   }
 
   return (
+    state.story &&
     <div className='story-detail'>
-      <Component data={data}/>
+      <Component data={state.story}/>
       <RainBorrowCloud />
     </div>
   )
+}
+
+function stateSelector(state) {
+  return {
+    story: state.story.story,
+  }
 }
