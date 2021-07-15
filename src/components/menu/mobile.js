@@ -1,8 +1,12 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+
 import 'css/menu-mobile.scss'
+
 import {
   HomeOutlined,
   SettingFilled,
+  PlusOutlined
 } from '@ant-design/icons';
 
 export default function MenuMobile() {
@@ -14,7 +18,7 @@ export default function MenuMobile() {
         <SettingFilled />
 
         <div className="circle">
-          <i className="fas fa-plus plus-icon"></i>
+          <Link className="book home-page" to="/story-create"><PlusOutlined /></Link>
           <i className="fab fa-youtube social"></i>
           <i className="fab fa-twitter social"></i>
           <i className="fab fa-github  social"></i>

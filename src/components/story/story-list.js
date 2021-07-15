@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { getListStory } from 'store/actions/storyActions'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 

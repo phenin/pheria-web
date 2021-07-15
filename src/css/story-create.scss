@@ -1,0 +1,44 @@
+.story-create {
+  padding: 1rem;
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+}
+.story-form{
+  .ant-form-item-label > label {
+    color: #fff;
+  }
+  .ant-form-item{
+    margin-bottom: 1rem;
+  }
+  .ant-upload-select-picture-card{
+    height: 50px;
+    width: 100%;
+    margin-bottom: 1rem;
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+}
+.story-template{
+  display: flex;    
+  overflow-x: auto;
+  &-item{
+    white-space: nowrap;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 30px;
+    margin: 0 0.5rem 0 0;
+  }
+  &::-webkit-scrollbar{
+    display: none;
+  }
+}
+.story-image{
+  width: 27vh;
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}

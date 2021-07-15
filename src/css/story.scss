@@ -51,3 +51,14 @@
 .story-detail {
   position: relative;
 }
+.story-header{
+  display: flex;
+  .story-header_icon{
+    font-size: 24px;
+    margin-right: 1rem;
+  }
+  h3 {
+    color: #fff;
+    font-size: 24px;
+  }
+}

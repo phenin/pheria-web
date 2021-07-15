@@ -13,7 +13,7 @@ import 'css/app.scss';
 const PageNotFound = lazy(() => import('./components/notfound'));
 const Login = lazy(() => import('./components/auth/LoginBackground'));
 const Home = lazy(() => import('./components/home/index'));
-const HomeAdmin = lazy(() => import('./components/admin/home'));
+const StoryCreate = lazy(() => import('./components/story/story-create'));
 const StoryDetail = lazy(() => import('./components/story/story-detail'));
 
 const store = configureStore()
@@ -26,17 +26,21 @@ const App = () => {
             <ConnectedRouter history={history}>
                 <Suspense fallback={<div>Loading...</div>}>
                     <Switch>
-                        <Route exact path="/home" render={(props) => {
-                            const Component = RequireAuth(props)(HomeAdmin)
+                        <Route path="/sign-in" component={Login} />
+                        <Route path="/404" component={PageNotFound} />
+                        <Route exact path="/" render={(props) => {
+                            const Component = RequireAuth(props)(Home)
                             return <Component />
                         }} />
                         <Route exact path="/story/:id" render={(props) => {
                             const Component = RequireAuth(props)(StoryDetail)
                             return <Component />
                         }} />
-                        <Route exact path="/" component={Home} />
-                        <Route path="/sign-in" component={Login} />
-                        <Route path="/404" component={PageNotFound} />
+                        <Route exact path="/story-create" render={(props) => {
+                            const Component = RequireAuth(props)(StoryCreate)
+                            return <Component />
+                        }} />
+                        
                         <Redirect to="/404" />
                     </Switch>
                 </Suspense>
