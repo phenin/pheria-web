@@ -2,14 +2,24 @@ import React from 'react'
 import 'css/template/depression/novel-multi-banner.scss'
 
 export default function NovelOneBanner({data}) {
-  console.log(data)
 
   const { template } = data
+  let backgroundColor = null
+  if( template.backgroundColor && template.backgroundColor.length > 2 ) {
+    let listColor = ''
+    template.backgroundColor.forEach(color => {
+      listColor = listColor + "#" + color + ", "
+    })
+    backgroundColor = `radial-gradient(${listColor})`
+  }
+  else if ( template.backgroundColor.length === 1 ){
+    backgroundColor = `#${template.backgroundColor[0]}`
+  }
 
   return (
     <div className={`depression-novel-one-banner`} 
       style={{
-        backgroundColor: template.backgroundColor[0],
+        backgroundColor: backgroundColor,
         color: template.color ? `#${template.color}` : '#000'
       }}
     >
