@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Form, Button } from 'antd';
-import UploadImage from 'components/common/uploadImage'
+import UploadImage from 'components/common/uploadImages'
 import { useSelector, shallowEqual } from 'react-redux'
 import { LoadingOutlined } from '@ant-design/icons';
 
