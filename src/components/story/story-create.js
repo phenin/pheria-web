@@ -24,21 +24,18 @@ export default function StoryCreate() {
       setBackgroundColor(`#${template.backgroundColor[0]}`)
     }
   }, [template, setBackgroundColor])
-  
 
   return (
     <div className="story-create" 
       style={{
         backgroundColor: backgroundColor,
-        color: (template && template.color) ? `#${template.color}` : '#fff'
+        color: (template && template.color) ? `#${template.color}` : '#fff',
+        backgroundImage: `url(${template && template.image[0].url})`
       }}
     >
       <StoryHeader title="Bạn có tâm sự gì?"/>
       <StoryTemplate />
       <StoryFrom />
-      {
-        template && <img className="story-image" src={`${template.image[0].url}`} alt='lonely girl' />
-      }
       
     </div>
   )

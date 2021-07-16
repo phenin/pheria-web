@@ -12,11 +12,6 @@ export default function StoryForm() {
   const [image, setImage] = useState(null)
   const state = useSelector(stateSelector, shallowEqual)
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  }
-
   const upload = (imageUrl) =>{
     setImage(imageUrl)
   }
@@ -28,8 +23,7 @@ export default function StoryForm() {
   return (
     <div className="story-form">
       <Form
-        {...formItemLayout}
-        layout={'horizontal'}
+        layout={'vertical'}
         form={form}
         onFinish={onFinish}
       >
@@ -53,7 +47,7 @@ export default function StoryForm() {
               message: 'Nội dung là bắt buộc',
             },
           ]}>
-          <TextArea rows={4} placeholder="Nội dung" />
+          <TextArea rows={12} placeholder="Nội dung" />
         </Form.Item>
         <Form.Item 
           label="Ảnh đại diện" 

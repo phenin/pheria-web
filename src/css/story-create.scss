@@ -2,7 +2,9 @@
   padding: 1rem;
   background-color: #000;
   color: #fff;
-  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: 0;
+  background-size: contain;
 }
 .story-form{
   .ant-form-item-label > label {
@@ -11,8 +13,8 @@
   .ant-form-item{
     margin-bottom: 1rem;
   }
-  .ant-upload-select-picture-card{
-    height: 50px;
+  .ant-upload-select-picture-card {
+    height: 150px;
     width: 100%;
     margin-bottom: 1rem;
     img {
@@ -20,11 +22,17 @@
       height: 100%;
     }
   }
-
+  .ant-input {
+    background-color: transparent;
+    &:hover{
+      background-color: transparent;
+    }
+  }
 }
 .story-template{
   display: flex;    
   overflow-x: auto;
+  margin-bottom: 0.5rem;
   &-item{
     white-space: nowrap;
     padding: 10px;
@@ -38,7 +46,7 @@
 }
 .story-image{
   width: 27vh;
-  bottom: 0;
-  position: absolute;
-  right: 0;
+  // bottom: 0;
+  // position: absolute;
+  // right: 0;
 }
