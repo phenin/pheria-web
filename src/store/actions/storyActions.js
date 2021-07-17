@@ -74,6 +74,7 @@ export const getDetailStory = (params) => async (dispatch, getState) => {
 }
 
 export const createUpdateStory = (params) => async (dispatch, getState) => {
+  
   dispatch({
     type: ActionTypes.STORY_START,
     payload: {
@@ -82,12 +83,13 @@ export const createUpdateStory = (params) => async (dispatch, getState) => {
   })
 
   try {
-    if(params._id){
-      await fetchUpdateStory(params)
-    }
-    else{
+    // if(params._id){
+    //   await fetchUpdateStory(params)
+    // }
+    // else{
       await fetchCreateStory(params)
-    }
+    // }
+    
 
     dispatch({
       type: ActionTypes.CREATE_STORY_SUCCESS,

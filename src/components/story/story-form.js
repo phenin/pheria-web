@@ -1,23 +1,40 @@
 import React, { useState } from 'react'
-import { Input, Form, Button } from 'antd';
+import { Input, Form, Button, message } from 'antd';
 import UploadImage from 'components/common/uploadImages'
-import { useSelector, shallowEqual } from 'react-redux'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { LoadingOutlined } from '@ant-design/icons';
+import { createUpdateStory } from "store/actions/storyActions"
 
 const { TextArea } = Input;
 
-export default function StoryForm() {
-
+export default function StoryForm({template, type}) {
+  const dispatch = useDispatch()
   const [form] = Form.useForm();
   const [image, setImage] = useState(null)
   const state = useSelector(stateSelector, shallowEqual)
 
   const upload = (imageUrl) =>{
+    console.log(imageUrl)
     setImage(imageUrl)
   }
 
   const onFinish = async (value) =>{
-    console.log(value, image)
+    const _id = undefined
+    const data = {
+      _id,
+      ...value,
+      template,
+      image,
+      type
+    }
+    console.log(data)
+    const success = await dispatch(createUpdateStory(data))
+    if(success) {
+      message.success(`${_id ?'Cập nhật story thành công' :'Thêm mới story thành công'}`);
+    }
+    else{
+      message.success(`${_id ?'Cập nhật story thất bại' :'Thêm mới story thất bại'}`);
+    }
   }
 
   return (
@@ -68,5 +85,6 @@ export default function StoryForm() {
 function stateSelector(state) {
   return {
     loading: state.story.loading,
+    story: state.story.story
   }
 }

@@ -31,15 +31,15 @@ class UploadImage extends React.Component {
       return;
     }
     if (info.file.status === 'done') {
-      this.props.upload(info.response &&  info.response.url)
+      
       getBase64(info.file.originFileObj, imageUrl => {
         this.setState({
           imageUrl,
           loading: false,
         })
-        
       });
-      
+      console.log(info)
+      this.props.upload(info.file && info.file.response && info.file.response.url)
     }
   };
 

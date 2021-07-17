@@ -5,7 +5,7 @@ import NovelMultiBanner from 'components/template/novel/novel-multi-banner'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { getDetailStory } from 'store/actions/storyActions'
 import { useParams } from "react-router-dom";
-
+import StoryHeader from "./story-header"
 import RainBorrowCloud from 'components/topping/rain/borrow-cloud'
 
 export default function StoryDetail() {
@@ -35,6 +35,7 @@ export default function StoryDetail() {
   return (
     state.story &&
     <div className='story-detail'>
+      <StoryHeader title="" hasMenu={true}/>
       <Component data={state.story}/>
       <RainBorrowCloud />
     </div>

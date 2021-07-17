@@ -35,7 +35,7 @@ export default function StoryCreate() {
     >
       <StoryHeader title="Bạn có tâm sự gì?"/>
       <StoryTemplate />
-      <StoryFrom />
+      <StoryFrom template={template && template._id} type={template && template.type}/>
       
     </div>
   )

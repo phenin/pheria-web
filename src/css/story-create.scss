@@ -24,9 +24,16 @@
   }
   .ant-input {
     background-color: transparent;
+    color: #fff;
     &:hover{
       background-color: transparent;
     }
+  }
+  .ant-upload{
+    color: #fff;
+  }
+  .ant-upload-select-picture-card{
+    background-color: transparent;
   }
 }
 .story-template{

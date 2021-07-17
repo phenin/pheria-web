@@ -8,17 +8,17 @@ export default function RainBorrowCloud() {
   return (
     <div className="rain-borrow-cloud">
       <img className="cloud" src='/assets/topping/rain/cloud.png' alt='cloud' />
-      <div class="rain">
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
-        <span class="drop"></span>
+      <div className="rain">
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
+        <span className="drop"></span>
       </div>
   
     </div>

@@ -50,6 +50,23 @@
 }
 .story-detail {
   position: relative;
+  .story-header{
+    display: flex;
+    position: absolute;
+    top: 0;
+    background-color: transparent;
+    justify-content: space-between;
+    width: 100vw;
+    .story-header_icon{
+      font-size: 24px;
+      color: #fff;
+      margin-right: 1rem;
+    }
+    h3 {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
 }
 .story-header{
   display: flex;
