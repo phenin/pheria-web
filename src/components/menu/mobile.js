@@ -19,9 +19,6 @@ export default function MenuMobile() {
 
         <div className="circle">
           <Link className="book home-page" to="/story-create"><PlusOutlined /></Link>
-          <i className="fab fa-youtube social"></i>
-          <i className="fab fa-twitter social"></i>
-          <i className="fab fa-github  social"></i>
         </div>
         <div className="circleBackground"></div>
       </div>

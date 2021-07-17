@@ -7,10 +7,10 @@ import { createUpdateStory } from "store/actions/storyActions"
 
 const { TextArea } = Input;
 
-export default function StoryForm({template, type}) {
+export default function StoryForm({template, type, imageTemplate}) {
   const dispatch = useDispatch()
   const [form] = Form.useForm();
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(imageTemplate && imageTemplate.url)
   const state = useSelector(stateSelector, shallowEqual)
 
   const upload = (imageUrl) =>{
@@ -24,10 +24,9 @@ export default function StoryForm({template, type}) {
       _id,
       ...value,
       template,
-      image,
+      image: image,
       type
     }
-    console.log(data)
     const success = await dispatch(createUpdateStory(data))
     if(success) {
       message.success(`${_id ?'Cập nhật story thành công' :'Thêm mới story thành công'}`);

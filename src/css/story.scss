@@ -11,7 +11,12 @@
         position: absolute;
         border-radius: 10px;
       }
-      
+      .story_text{
+        color: #fff;
+        font-size: 3rem;
+        position: absolute;
+        z-index: 6;
+      }
     }
     .story_heart{
       color: #fff;

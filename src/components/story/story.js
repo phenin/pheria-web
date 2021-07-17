@@ -35,6 +35,7 @@ export default function Story({data}) {
         <Link className="story_link" to="/">
           <div className="story_wrap" style={{paddingBottom: paddingBottom + '%'}}>
             <img className="story_img" src={data.image} alt=""/> 
+            <p className="story_text">{data.title}</p>
           </div>
           <div className="story_heart">
             <HeartFilled className="heart"/> {data.heart}

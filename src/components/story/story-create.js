@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import StoryFrom from "./story-form"
 import StoryTemplate from "./story-template"
 import StoryHeader from "./story-header"
-import { useSelector, shallowEqual } from 'react-redux'
-
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import 'css/story-create.scss'
+import { setStory } from "store/actions/storyActions"
 
 export default function StoryCreate() {  
   const state = useSelector(stateSelector, shallowEqual)
   const [backgroundColor, setBackgroundColor] = useState(null)
+  const dispatch = useDispatch()
 
   const { template } = state
 
@@ -23,7 +24,10 @@ export default function StoryCreate() {
     else if ( template && template.backgroundColor.length === 1 ){
       setBackgroundColor(`#${template.backgroundColor[0]}`)
     }
-  }, [template, setBackgroundColor])
+
+    dispatch(setStory(null))
+
+  }, [template, setBackgroundColor, dispatch, setStory])
 
   return (
     <div className="story-create" 
@@ -35,7 +39,8 @@ export default function StoryCreate() {
     >
       <StoryHeader title="Bạn có tâm sự gì?"/>
       <StoryTemplate />
-      <StoryFrom template={template && template._id} type={template && template.type}/>
+      <StoryFrom template={template && template._id} type={template && template.type} 
+        imageTemplate={template && template.image.length > 0 && template.image[0]}/>
       
     </div>
   )
