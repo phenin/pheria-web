@@ -1,0 +1,39 @@
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #242526;
+  .background {
+    img {
+      width: 100vw;
+    }
+    
+  }
+  .info {
+    background-color: #242526;
+    position: relative;
+  }
+  .avatar{
+    width: fit-content;
+    border: 5px solid #242526;
+    position: absolute;
+    border-radius: 50%;
+    top: -160px;
+    left: calc(50vw - 168px/2);
+    img {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+    }
+  }
+  .name{
+    width: 100vw;
+    height: 70px;
+    color: #fff;
+    background-color: #242526;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+  }
+}

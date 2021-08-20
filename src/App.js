@@ -15,6 +15,7 @@ const Login = lazy(() => import('./components/auth/LoginBackground'));
 const Home = lazy(() => import('./components/home/index'));
 const StoryCreate = lazy(() => import('./components/story/story-create'));
 const StoryDetail = lazy(() => import('./components/story/story-detail'));
+const Profile = lazy(() => import('./components/profile'));
 
 const store = configureStore()
 
@@ -38,6 +39,10 @@ const App = () => {
                         }} />
                         <Route exact path="/story-create" render={(props) => {
                             const Component = RequireAuth(props)(StoryCreate)
+                            return <Component />
+                        }} />
+                        <Route exact path="/profile" render={(props) => {
+                            const Component = RequireAuth(props)(Profile)
                             return <Component />
                         }} />
                         

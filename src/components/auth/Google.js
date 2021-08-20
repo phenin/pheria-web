@@ -22,7 +22,7 @@ export default function Google() {
   return (
     <div>
       <GoogleLogin
-        clientId="203446964330-c908139qohqo2g5ga16g0sf19foigc9p.apps.googleusercontent.com"
+        clientId="279484816241-tt5n888b74m6kulj3i97bmfo3c0d9n10.apps.googleusercontent.com"
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
         buttonText={""}
@@ -33,3 +33,4 @@ export default function Google() {
     </div>
   )
 }
+//mD2_HRo9YP25zYcNuUrAXvzo

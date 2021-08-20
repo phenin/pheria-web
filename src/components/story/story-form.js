@@ -4,6 +4,7 @@ import UploadImage from 'components/common/uploadImages'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { LoadingOutlined } from '@ant-design/icons';
 import { createUpdateStory } from "store/actions/storyActions"
+import axios from "axios"
 
 const { TextArea } = Input;
 
@@ -12,6 +13,7 @@ export default function StoryForm({template, type, imageTemplate}) {
   const [form] = Form.useForm();
   const [image, setImage] = useState(imageTemplate && imageTemplate.url)
   const state = useSelector(stateSelector, shallowEqual)
+  const [photo, setPhoto] = useState(null)
 
   const upload = (imageUrl) =>{
     console.log(imageUrl)
@@ -34,6 +36,36 @@ export default function StoryForm({template, type, imageTemplate}) {
     else{
       message.success(`${_id ?'Cập nhật story thất bại' :'Thêm mới story thất bại'}`);
     }
+  }
+
+  const fileUpload = (event) =>{
+    console.log(event[0])
+    // console.log(value.target.files[0])
+    setPhoto(event[0])
+  }
+
+  const uploadImage = () =>{
+      const data = new FormData();
+      data.append('image', photo);
+      console.log(data)
+      const config = {
+        method: 'post',
+        url: 'https://api.imgur.com/3/image',
+        headers: { 
+          'Authorization': 'Client-ID 574f96546392ad0', 
+          'Accept': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data',
+        },
+        data : data
+      };
+      axios(config)
+      .then((response) => {
+        console.log('response ccc', response);
+      })
+      .catch((error) => {
+        console.log('error ccc', error);
+      });
+    
   }
 
   return (
@@ -76,6 +108,8 @@ export default function StoryForm({template, type, imageTemplate}) {
             <Button type="primary" className="pheria-btn" htmlType="submit">Đăng</Button>
           }
         </Form.Item>
+        <input type="file" onChange={(e)=>fileUpload(e.target.files)}/>
+        <button onClick={uploadImage}>click</button>
       </Form>
     </div>
   )

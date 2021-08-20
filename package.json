@@ -17,6 +17,7 @@
     "dayjs": "^1.10.5",
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
+    "form-data": "^2.3.3",
     "i18next": "^20.3.2",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-backend": "^1.2.6",

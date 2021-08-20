@@ -53,13 +53,16 @@ class UploadImage extends React.Component {
     );
     return (
       <Upload
-        name="file"
+        name="image"
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
-        action="http://localhost:8001/api/upload-image"
+        action="https://api.imgur.com/3/image"
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
+        headers={{
+          'Authorization': 'Client-ID 574f96546392ad0'
+        }}
       >
         {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
       </Upload>
