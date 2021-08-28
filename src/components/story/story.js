@@ -20,7 +20,12 @@ export default function Story({data}) {
 
   useEffect(() => {
     getMeta(data.image, function(width, height) {
-      setPaddingBottom( height * 100 /width )
+      if(width && height) {
+        setPaddingBottom( height * 100 /width )
+      }
+      else{
+        setPaddingBottom(100)
+      }
     })
   }, [data, getMeta, setPaddingBottom])
 
@@ -29,16 +34,18 @@ export default function Story({data}) {
   }
 
   return (
-    <div className={`story ht-${Number.parseInt((paddingBottom - 100) / 10 )}`}
+    <div className={`story ht-${Number.parseInt(Math.abs(paddingBottom - 100) / 10 )}`}
       onClick={()=>viewDetail(data)}>
       <div className="story_container">
         <Link className="story_link" to="/">
           <div className="story_wrap" style={{paddingBottom: paddingBottom + '%'}}>
-            <img className="story_img" src={data.image} alt=""/> 
-            <p className="story_text">{data.title}</p>
+            {
+              data.image && <img className="story_img" src={data.image} alt=""/> 
+            }
           </div>
           <div className="story_heart">
             <HeartFilled className="heart"/> {data.heart}
+            <div className="story_text">{data.title}</div>
           </div>
         </Link>
       

@@ -16,7 +16,7 @@ export default function StoryHeader({title, hasMenu}) {
   const menuList = (
     <Menu>
       <Menu.Item>
-        <Link target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+        <Link to="/edit" rel="noopener noreferrer" href="https://www.antgroup.com">
           Chỉnh sửa
         </Link>
       </Menu.Item>

@@ -11,24 +11,26 @@
         position: absolute;
         border-radius: 10px;
       }
-      .story_text{
-        color: #fff;
-        font-size: 3rem;
-        position: absolute;
-        z-index: 6;
-      }
     }
     .story_heart{
       color: #fff;
       padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       .heart {
         color: #ED4956;
+      }
+      .story_text{
+        color: #fff;
+        font-size: 16px;
+        margin-left: 10px;
       }
     }
   }
 }
 .story-list{
-  height: 92vh;
+  height: 100vh;
   overflow: auto;
   overflow-y: scroll;
   .container {
@@ -40,21 +42,23 @@
     grid-template-columns: repeat(auto-fill, 300px);
     grid-auto-rows: 10px;
     justify-content: center;
-    .ht-0 { grid-row-end: span 14; }
-    .ht-1 { grid-row-end: span 15; }
-    .ht-2 { grid-row-end: span 15; }
-    .ht-3 { grid-row-end: span 16; }
-    .ht-4 { grid-row-end: span 17; }
-    .ht-5 { grid-row-end: span 18; }
-    .ht-6 { grid-row-end: span 19; }
-    .ht-7 { grid-row-end: span 20; }
-    .ht-8 { grid-row-end: span 21; }
-    .ht-9 { grid-row-end: span 22; }
+    .ht-0 { grid-row-end: span 7; }
+    .ht-1 { grid-row-end: span 8; }
+    .ht-2 { grid-row-end: span 9; }
+    .ht-3 { grid-row-end: span 10; }
+    .ht-4 { grid-row-end: span 11; }
+    .ht-5 { grid-row-end: span 12; }
+    .ht-6 { grid-row-end: span 13; }
+    .ht-7 { grid-row-end: span 14; }
+    .ht-8 { grid-row-end: span 15; }
+    .ht-9 { grid-row-end: span 16; }
 
   }
 }
 .story-detail {
   position: relative;
+  background-color: black;
+  height: 100vh;
   .story-header{
     display: flex;
     position: absolute;
