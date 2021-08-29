@@ -31,6 +31,6 @@ export default function StoryList() {
 
 function stateSelector(state) {
   return {
-    listStory: state.story.listStory,
+    listStory: state.listStory.listStory,
   }
 }

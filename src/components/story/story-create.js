@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import StoryFrom from "./story-form"
-import StoryTemplate from "./story-template"
+import ListGroupTempate from "./list-group-template"
 import StoryHeader from "./story-header"
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import 'css/story-create.scss'
@@ -30,19 +30,17 @@ export default function StoryCreate() {
   }, [template, setBackgroundColor, dispatch, setStory])
 
   return (
-    <div className="story-create" 
-      style={{
-        backgroundColor: backgroundColor,
-        color: (template && template.color) ? `#${template.color}` : '#fff',
-        backgroundImage: `url(${template && template.image[0].url})`
-      }}
-    >
-      <StoryHeader title="Bạn có tâm sự gì?"/>
-      <StoryTemplate />
-      <StoryFrom template={template && template._id} type={template && template.type} 
-        imageTemplate={template && template.image.length > 0 && template.image[0]}/>
-      
-    </div>
+      <div className="story-create" 
+        style={{
+          backgroundColor: backgroundColor,
+          color: (template && template.color) ? `#${template.color}` : '#fff'
+        }}
+      >
+        <StoryHeader title="Bạn có tâm sự gì?"/>
+        <StoryFrom template={template && template._id} type={template && template.type} 
+          imageTemplate={template && template.image.length > 0 && template.image[0]}/>
+        <ListGroupTempate />
+      </div>
   )
 }
 

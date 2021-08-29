@@ -5,6 +5,9 @@
   background-repeat: no-repeat;
   background-position: 0;
   background-size: contain;
+  height: 500vh;
+  max-width: 500px;
+  margin: 0 auto;
 }
 .story-form{
   .ant-form-item-label > label {
@@ -56,4 +59,14 @@
   // bottom: 0;
   // position: absolute;
   // right: 0;
+}
+.content-modal{
+  &.ant-modal-wrap{
+    top: inherit
+  }
+  .ant-modal{
+    padding-bottom: 0px;
+    bottom: 0px;
+    top: inherit;
+  }
 }

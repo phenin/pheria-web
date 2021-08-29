@@ -3,8 +3,16 @@ import {
   fetchListStory,
   fetchDetailStory,
   fetchCreateStory,
-  fetchUpdateStory
-} from 'api/story'
+  fetchUpdateStory,
+  fetchHeartStory,
+  fetchUnHeartStory,
+  fetchListComment,
+  fetchComment,
+  fetchReplyComment
+} from '../../api/story'
+import {
+  v4 as uuidv4
+} from 'uuid';
 
 export const getListStory = (params) => async (dispatch, getState) => {
   dispatch({
@@ -26,14 +34,14 @@ export const getListStory = (params) => async (dispatch, getState) => {
       }
     })
     return true
-    
+
   } catch (error) {
     dispatch({
-        type: ActionTypes.STORY_ERROR,
-        payload: {
-          error: error,
-          loading: false,
-        }
+      type: ActionTypes.STORY_ERROR,
+      payload: {
+        error: error,
+        loading: false,
+      }
     })
     return false
   }
@@ -54,19 +62,20 @@ export const getDetailStory = (params) => async (dispatch, getState) => {
     dispatch({
       type: ActionTypes.GET_DETAIL_STORY_SUCCESS,
       payload: {
-        story: data.data.story,
+        ...data.data.story,
         loading: false,
+        liked: data.data.liked
       }
     })
     return true
-    
+
   } catch (error) {
     dispatch({
-        type: ActionTypes.STORY_ERROR,
-        payload: {
-          error: error,
-          loading: false,
-        }
+      type: ActionTypes.STORY_ERROR,
+      payload: {
+        error: error,
+        loading: false,
+      }
     })
     return false
   }
@@ -74,7 +83,7 @@ export const getDetailStory = (params) => async (dispatch, getState) => {
 }
 
 export const createUpdateStory = (params) => async (dispatch, getState) => {
-  
+
   dispatch({
     type: ActionTypes.STORY_START,
     payload: {
@@ -87,9 +96,9 @@ export const createUpdateStory = (params) => async (dispatch, getState) => {
     //   await fetchUpdateStory(params)
     // }
     // else{
-      await fetchCreateStory(params)
+    await fetchCreateStory(params)
     // }
-    
+
 
     dispatch({
       type: ActionTypes.CREATE_STORY_SUCCESS,
@@ -98,26 +107,340 @@ export const createUpdateStory = (params) => async (dispatch, getState) => {
       }
     })
     return true
-    
+
   } catch (error) {
     dispatch({
-        type: ActionTypes.STORY_ERROR,
-        payload: {
-          error: error,
-          loading: false,
-        }
+      type: ActionTypes.STORY_ERROR,
+      payload: {
+        error: error,
+        loading: false,
+      }
     })
     return false
   }
 
 }
 
+export const resetStory = () => async (dispatch, getState) => {
+
+  dispatch({
+    type: ActionTypes.RESET_STORY,
+    payload: {
+      title: "",
+      background: {
+        backgroundColor: ["#000000"],
+        color: "#ffffff"
+      },
+      contents: [{
+        text: "",
+        width: 50,
+        height: 50,
+        x: 20,
+        y: 10,
+        _id: uuidv4()
+      }],
+      templates: [],
+      image: "",
+    }
+  })
+}
+
 export const setStory = (story) => async (dispatch, getState) => {
-  
+
   dispatch({
     type: ActionTypes.SET_STORY,
     payload: {
-      story: story
+      story,
     }
   })
+}
+
+export const addTemplate = (template) => async (dispatch, getState) => {
+
+  const data = [...getState().story.templates, {
+    template: template,
+    x: 0,
+    y: 300,
+    _id: uuidv4()
+  }]
+
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      templates: data
+    }
+  })
+}
+
+export const getBackground = (background) => async (dispatch, getState) => {
+
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      background: {
+        backgroundColor: background.backgroundColor,
+        color: background.color,
+        _id: background._id
+      }
+    }
+  })
+}
+
+export const addContent = () => async (dispatch, getState) => {
+
+  const data = [...getState().story.contents, {
+    width: 50,
+    height: 50,
+    x: 0,
+    y: 300,
+    _id: uuidv4()
+  }]
+
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      contents: data
+    }
+  })
+}
+
+export const updateTitle = (title) => async (dispatch, getState) => {
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      title
+    }
+  })
+}
+
+export const updateImage = (image) => async (dispatch, getState) => {
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      image
+    }
+  })
+}
+
+export const changeContent = (value) => async (dispatch, getState) => {
+
+  let listContents = JSON.parse(JSON.stringify(getState().story.contents))
+  let index = getState().story.contents.findIndex(e => e._id === value._id)
+  let content = JSON.parse(JSON.stringify(getState().story.contents.find(e => e._id === value._id)))
+
+  content = {
+    ...content,
+    text: value.text,
+    width: value.width,
+    height: value.height
+  }
+  listContents[index] = content
+
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      contents: listContents
+    }
+  })
+}
+
+export const createStory = () => async (dispatch, getState) => {
+
+  const templates = getState().story.templates.map((item, index) => {
+    return {
+      template: item.template._id,
+      x: item.x,
+      y: item.y
+    }
+  })
+
+  const contents = getState().story.contents.map((item, index) => {
+    return {
+      text: item.text,
+      x: item.x,
+      y: item.y,
+      width: item.width,
+      height: item.height
+    }
+  })
+
+  const background = (getState().story.background && getState().story.background._id) ?
+    getState().story.background._id : getState().story.background
+
+  const story = {
+    ...getState().story,
+    templates: templates,
+    background: background,
+    contents: contents
+  }
+
+  dispatch({
+    type: ActionTypes.STORY_START,
+    payload: {
+      loading: true,
+    }
+  })
+  try {
+    if(story._id){
+      await fetchUpdateStory(story)
+    }
+    else{
+      await fetchCreateStory(story)
+    }
+
+    dispatch({
+      type: ActionTypes.CREATE_STORY_SUCCESS,
+      payload: {
+        loading: false,
+      }
+    })
+    return true
+
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.STORY_ERROR,
+      payload: {
+        error: error,
+        loading: false,
+      }
+    })
+    return false
+  }
+}
+
+export const changePositionTemplate = (value) => async (dispatch, getState) => {
+
+  let listTemplates = JSON.parse(JSON.stringify(getState().story.templates))
+  let index = getState().story.templates.findIndex(e => e._id === value._id)
+  let template = JSON.parse(JSON.stringify(getState().story.templates.find(e => e._id === value._id)))
+  template = {
+    ...template,
+    x: template.x + value.x,
+    y: template.y + value.y
+  }
+  listTemplates[index] = template
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      templates: listTemplates
+    }
+  })
+}
+
+export const changePositionContent = (value) => async (dispatch, getState) => {
+
+  let listContents = JSON.parse(JSON.stringify(getState().story.contents))
+  let index = getState().story.contents.findIndex(e => e._id === value._id)
+  let content = JSON.parse(JSON.stringify(getState().story.contents.find(e => e._id === value._id)))
+
+  content = {
+    ...content,
+    x: value.x,
+    y: value.y
+  }
+  listContents[index] = content
+  dispatch({
+    type: ActionTypes.SET_STORY,
+    payload: {
+      contents: listContents
+    }
+  })
+}
+
+export const heartStory = (id, status) => async (dispatch, getState) => {
+  try {
+    if(status){
+      await fetchHeartStory(id)
+      const hearts = JSON.parse(JSON.stringify(getState().story.hearts))
+      hearts.push(id)
+      dispatch({
+        type: ActionTypes.SET_STORY,
+        payload: {
+          hearts: hearts,
+          liked: true
+        }
+      })
+
+    }
+    else{
+      await fetchUnHeartStory(id)
+      const hearts = getState().story.hearts.filter(e => e !== id)
+      dispatch({
+        type: ActionTypes.SET_STORY,
+        payload: {
+          hearts: hearts,
+          liked: false
+        }
+      })
+    }
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+export const getListCommentStory = (id) => async (dispatch, getState) => {
+  try {
+    const data = await fetchListComment(id)
+    
+    dispatch({
+      type: ActionTypes.SET_STORY,
+      payload: {
+        comments: data.data.comments,
+      }
+    })
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+export const commentStory = (params) => async (dispatch, getState) => {
+  try {
+    await fetchComment(params)
+
+    let comments = JSON.parse(JSON.stringify(getState().story.comments))
+    params.author = getState().user.user
+    params.replies = []
+    comments.push(params)
+    
+    dispatch({
+      type: ActionTypes.SET_STORY,
+      payload: {
+        comments: comments,
+      }
+    })
+
+    return true
+  }
+  catch(err){
+    console.log(err)
+    return false
+  }
+
+}
+
+export const replyCommentStory = (params) => async (dispatch, getState) => {
+  try {
+    await fetchReplyComment(params)
+
+    let comments = JSON.parse(JSON.stringify(getState().story.comments))
+    let index = getState().story.comments.findIndex(e=>e._id === params.replyId)
+    params.author = getState().user.user
+    comments[index].replies.push(params) 
+
+    dispatch({
+      type: ActionTypes.SET_STORY,
+      payload: {
+        comments: comments,
+      }
+    })
+
+    return true
+  }
+  catch(err){
+    console.log(err)
+    return false
+  }
+
 }

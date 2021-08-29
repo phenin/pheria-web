@@ -1,123 +1,155 @@
 import React, { useState } from 'react'
-import { Input, Form, Button, message } from 'antd';
-import UploadImage from 'components/common/uploadImages'
+import { Input, Button } from 'antd';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
-import { LoadingOutlined } from '@ant-design/icons';
-import { createUpdateStory } from "store/actions/storyActions"
-import axios from "axios"
+import {
+  changeContent,
+  changePositionTemplate,
+  changePositionContent,
+} from '../../store/actions/storyActions';
+import {REACT_APP_API} from '../../constants';
+import Draggable from 'react-draggable';
+import {Modal} from 'antd';
 
-const { TextArea } = Input;
+export default function StoryForm({color}) {
+  const [dialog, setDialog] = React.useState(false);
+  const [area, setArea] = React.useState(null);
+  const state = useSelector(stateSelector, shallowEqual);
+  const dispatch = useDispatch();
 
-export default function StoryForm({template, type, imageTemplate}) {
-  const dispatch = useDispatch()
-  const [form] = Form.useForm();
-  const [image, setImage] = useState(imageTemplate && imageTemplate.url)
-  const state = useSelector(stateSelector, shallowEqual)
-  const [photo, setPhoto] = useState(null)
-
-  const upload = (imageUrl) =>{
-    console.log(imageUrl)
-    setImage(imageUrl)
+  const openTitleStory = item => {
+    setArea(item);
+    setDialog(true);
+    console.log(dialog)
+  };
+  const updateContent = () => {
+    dispatch(changeContent(area));
+    closeModal();
+  };
+  const handleChangeInput = (key, event) => {
+    console.log(key, event)
+    setArea({...area, [key]: event.target.value});
+  };
+  const closeModal = () => {
+    setDialog(false);
+  };
+  
+  const moveTemplate = (e,location, id) => {
+    dispatch(
+      changePositionTemplate({
+        _id: id,
+        x: location.x,
+        y: location.y,
+      }),
+    );
   }
 
-  const onFinish = async (value) =>{
-    const _id = undefined
-    const data = {
-      _id,
-      ...value,
-      template,
-      image: image,
-      type
-    }
-    const success = await dispatch(createUpdateStory(data))
-    if(success) {
-      message.success(`${_id ?'Cập nhật story thành công' :'Thêm mới story thành công'}`);
-    }
-    else{
-      message.success(`${_id ?'Cập nhật story thất bại' :'Thêm mới story thất bại'}`);
-    }
-  }
-
-  const fileUpload = (event) =>{
-    console.log(event[0])
-    // console.log(value.target.files[0])
-    setPhoto(event[0])
-  }
-
-  const uploadImage = () =>{
-      const data = new FormData();
-      data.append('image', photo);
-      console.log(data)
-      const config = {
-        method: 'post',
-        url: 'https://api.imgur.com/3/image',
-        headers: { 
-          'Authorization': 'Client-ID 574f96546392ad0', 
-          'Accept': 'multipart/form-data',
-          'Content-Type': 'multipart/form-data',
-        },
-        data : data
-      };
-      axios(config)
-      .then((response) => {
-        console.log('response ccc', response);
-      })
-      .catch((error) => {
-        console.log('error ccc', error);
-      });
-    
+  const moveContent = (e,location, id) => {
+    dispatch(
+      changePositionContent({
+        _id: id,
+        x: location.x,
+        y: location.y,
+      }),
+    );
   }
 
   return (
-    <div className="story-form">
-      <Form
-        layout={'vertical'}
-        form={form}
-        onFinish={onFinish}
+      <div className="story-form"
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+        }}
       >
-        <Form.Item 
-          label="Tên Story" 
-          name="title"
-          rules={[
-            {
-              required: true,
-              message: 'Tên story là bắt buộc',
-            },
-          ]}>
-          <Input placeholder="Tên story" />
-        </Form.Item>
-        <Form.Item 
-          label="Nội dung" 
-          name="content"
-          rules={[
-            {
-              required: true,
-              message: 'Nội dung là bắt buộc',
-            },
-          ]}>
-          <TextArea rows={12} placeholder="Nội dung" />
-        </Form.Item>
-        <Form.Item 
-          label="Ảnh đại diện" 
-          >
-          <UploadImage upload={upload}/>
-        </Form.Item>
-        <Form.Item >
-          {
-            state.loading ? <LoadingOutlined /> : 
-            <Button type="primary" className="pheria-btn" htmlType="submit">Đăng</Button>
-          }
-        </Form.Item>
-        <input type="file" onChange={(e)=>fileUpload(e.target.files)}/>
-        <button onClick={uploadImage}>click</button>
-      </Form>
-    </div>
+        {state.templates.map((item, index) => {
+          return (
+            <Draggable
+              key={'template' + index}
+              defaultPosition={{x: item.x, y: item.y}}
+              bounds="parent"
+              position={null}
+              onStop={(event, location)=>moveTemplate(event, location, item._id)}
+              style={{
+                width: 'fit-content'
+              }}>
+
+                <img
+                  src={REACT_APP_API + item.template.image}
+                  width={`${item.template.width * 10}`}
+                  height={`${item.template.height * 10}`}
+                  alt={item.template.code}
+                />
+            </Draggable>
+          )
+        })
+        }
+        {state.contents.map((item, index) => {
+          return (
+            <Draggable
+              key={'content' + index}
+              defaultPosition={{x: item.x, y: item.y}}
+              bounds="parent"
+              position={null}
+              onStop={(event, location)=>moveContent(event, location, item._id)}
+              style={{
+                width: 'fit-content'
+              }}>
+                <div
+                  style={{
+                    borderWidth: 1,
+                    borderColor: '#ff00ff',
+                    borderStyle: 'solid',
+                    borderRadius: 4,
+                    width: item.width * 3,
+                    height: item.height * 3
+                  }}
+                  onClick={() => openTitleStory(item)}
+                  onTouchStart={() => openTitleStory(item)}>
+                    <div style={{color: color}}>
+                      {item.text}
+                    </div>
+                </div>
+
+            </Draggable>
+          )
+        })
+        }
+        {
+          dialog && (
+            <Modal title="Nội dung" 
+              visible={dialog} onCancel={() => closeModal()} footer={null}
+              wrapClassName="content-modal">
+              <div className="">
+                <Input
+                  placeholder="Chiều dài %"
+                  defaultValue={area.width.toString()}
+                  onChange={v => handleChangeInput('width', v)}
+                />
+                <Input
+                  placeholder="Chiều cao %"
+                  defaultValue={area.height.toString()}
+                  onChange={v => handleChangeInput('height', v)}
+                />
+              </div>
+              <Input.TextArea
+                placeholder="Nhập nội dung"
+                defaultValue={area.text}
+                onChange={v => handleChangeInput('text', v)}
+              />
+              <Button type="primary" block onClick={() => updateContent()}>
+                Lưu
+              </Button>
+            </Modal>
+          )
+        }
+      </div>
+    
   )
 }
 
 function stateSelector(state) {
   return {
-    loading: state.story.loading,
-    story: state.story.story
-  }
+    templates: state.story.templates,
+    contents: state.story.contents,
+  };
 }

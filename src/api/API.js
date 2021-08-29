@@ -113,6 +113,15 @@ export function put(uri, data = {}, config = {}) {
  * calls with data.
  */
 
+export function patch(uri, data = {}, config = {}) {
+  config = {
+    ...defaultConfig,
+    ...config,
+  };
+
+  return axiosInstance.patch(uri, data, config)
+}
+
 export function remove(uri, params = {}, config = {}) {
   config = {
     ...defaultConfig,
